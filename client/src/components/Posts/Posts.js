@@ -8,7 +8,6 @@ import useStyles from './styles.js'
 const Posts = ({setCurrentId}) => {
     const posts = useSelector((state) => state.posts)
     
-    
     const classes = useStyles();
 
     return (

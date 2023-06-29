@@ -1,18 +1,20 @@
 import PostMessage from "../models/postMessage.js";
-import express from "express";
+import mongoose from "mongoose";
+
 
 export const getPosts = async (req, res) => {
     try {
         const postMessage = await PostMessage.find();
 
+
         res.status(200).json(postMessage);
     } catch (error) {
-        res.status(404).json({message: error.message})
+        res.status(404).json({ message: error.message })
     }
 };
 
 export const createPost = async (req, res) => {
-    const post =  req.body;
+    const post = req.body;
 
     const newPost = new PostMessage(post);
     try {
@@ -20,16 +22,24 @@ export const createPost = async (req, res) => {
 
         res.status(201).json(newPost)
     } catch (error) {
-        res.status(409).json({message: error.message}) 
+        res.status(409).json({ message: error.message })
     }
 }
 
 export const updatePost = async (req, res) => {
     const { id: _id } = req.params;
     const post = req.body;
+    console.log(req.body)
+    try {
+        
+        if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No Post with that id');
 
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No Post with that id');
+        const updatedPost = await PostMessage.finByIdAndUpdate(_id, {...post, _id}, { new: true });
+        res.json(updatedPost);
+    } catch (error) {
+        res.status(409).json({ message: error.message })
+    }
 
-    const updatePost =  await PostMessage.finByIdAndUpdate(_id, post, { new: true });
-    res.json(updatePost);
+
+
 }
