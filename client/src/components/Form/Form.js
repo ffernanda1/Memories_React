@@ -13,7 +13,7 @@ const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
     const classes = useStyles();
     const dispatch = useDispatch();
-    const setId = setCurrentId
+
 
     useEffect(() => {
         if (post) setPostData(post);
@@ -35,7 +35,7 @@ const Form = ({ currentId, setCurrentId }) => {
     }
 
     const clear = () => {
-        setId(null);
+        setCurrentId(null)
         setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
     }
 
