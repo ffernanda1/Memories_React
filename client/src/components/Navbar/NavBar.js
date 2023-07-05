@@ -8,9 +8,9 @@ const Navbar = () => {
     const classes = useStyles();
     const user = null
     return (
-        < AppBar className={classes.appBar} position="static" color="inherit" >
+        <AppBar className={classes.appBar} position="static" color="inherit" >
             <div className={classes.brandContainer}>
-                <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Memories</Typography>
+                <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Golden Time</Typography>
                 <img className={classes.image} src={memories} alt="memories" height="60" width="60" />
             </div>
             <Toolbar className={classes.toolbar}>
@@ -24,7 +24,8 @@ const Navbar = () => {
                     <Button component={Link} to="/auth" variant="contained" color="primary">Log In</Button>
                 )}
             </Toolbar>
-        </AppBar >
+        </AppBar>
     )
 }
+
 export default Navbar
