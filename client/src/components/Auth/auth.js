@@ -33,14 +33,15 @@ const Auth = () => {
     };
 
     const googleSuccess = async (res) => {
-        const result = res?.profileObj;
-        const token = res?.tokenId;
+        console.log(res)
+        // const result = res?.profileObj;
+        // const token = res?.tokenId;
 
-        try {
-            dispatch({ type: 'AUTH', data: { result, token } })
-        } catch (error) {
-            console.log(error)
-        }
+        // try {
+        //     dispatch({ type: 'AUTH', data: { result, token } })
+        // } catch (error) {
+        //     console.log(error)
+        // }
     };
 
     const googleFailure = (error) => {
@@ -57,6 +58,7 @@ const Auth = () => {
         }
 
         gapi.load('client:auth2', start);
+        setGapiLoaded(true)
     }, []);
 
     return (
@@ -83,7 +85,7 @@ const Auth = () => {
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                         {isSignup ? "Sign Up" : "Sign In"}
                     </Button>
-                    <GoogleLogin
+                    {gapiLoaded && (<GoogleLogin
                         render={(renderProps) => (
                             <Button
                                 className={classes.googleButton}
@@ -101,6 +103,7 @@ const Auth = () => {
                         onFailure={googleFailure}
                         cookiePolicy="single_host_origin"
                     />
+                    )}
 
                     <Grid container justifyContent="flex-end">
                         <Grid item>
