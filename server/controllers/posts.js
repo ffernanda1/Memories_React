@@ -45,6 +45,7 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
+    console.log(id)
 
     try {
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Post with that id');
@@ -60,6 +61,7 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
     const { id } = req.params;
+    console.log(id)
     try {
         if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No Post with that id');
 
