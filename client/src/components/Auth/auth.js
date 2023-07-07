@@ -3,6 +3,7 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { gapi } from "gapi-script";
+import { useNavigate } from 'react-router-dom';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles'
@@ -15,7 +16,7 @@ const Auth = () => {
     const [isSignup, setIsSignup] = useState(false);
     const [gapiLoaded, setGapiLoaded] = useState(false);
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword)
 
     const handleSubmit = () => {
@@ -33,15 +34,16 @@ const Auth = () => {
     };
 
     const googleSuccess = async (res) => {
-        console.log(res)
-        // const result = res?.profileObj;
-        // const token = res?.tokenId;
 
-        // try {
-        //     dispatch({ type: 'AUTH', data: { result, token } })
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        const result = res?.profileObj;
+        const token = res?.tokenId;
+
+        try {
+            dispatch({ type: 'AUTH', data: { result, token } })
+            navigate('/')
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const googleFailure = (error) => {
@@ -74,9 +76,7 @@ const Auth = () => {
                             <Fragment>
                                 <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
                                 <Input name="lastName" label="Last Name" handleChange={handleChange} half />
-
                             </Fragment>
-
                         )}
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
                         <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
