@@ -11,7 +11,7 @@ import useStyles from './styles'
 import Input from './input';
 import Icon from './icon';
 
-const initialState = {firstName:'', lastName:'', email:'', password:'', confirmPassword:''}
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
 
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -22,13 +22,13 @@ const Auth = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    
+
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword)
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        if(isSignup) {
+        if (isSignup) {
             dispatch(signup(formData, navigate))
         } else {
             dispatch(signin(formData, navigate))
@@ -36,12 +36,12 @@ const Auth = () => {
     };
 
     const handleChange = (event) => {
-        setFormData({...formData, [event.target.name]: event.target.value});
+        setFormData({ ...formData, [event.target.name]: event.target.value });
     };
 
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
-        handleShowPassword(false)
+        setShowPassword(false)
 
     };
 
@@ -91,8 +91,8 @@ const Auth = () => {
                             </Fragment>
                         )}
                         <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
-                        {isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
+                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword = {handleShowPassword} />
+                        {isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password"/>}
                     </Grid>
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                         {isSignup ? "Sign Up" : "Sign In"}
