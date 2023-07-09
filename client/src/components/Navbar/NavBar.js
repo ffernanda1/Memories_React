@@ -21,9 +21,6 @@ const Navbar = () => {
         setUser(null);
         localStorage.removeItem('profile');
         setTimeout(() => {
-            console.log(localStorage.getItem('profile')); // Check if the item is removed
-        }, 100);
-        setTimeout(() => {
             navigate('/auth');
         }, 100);
     };
