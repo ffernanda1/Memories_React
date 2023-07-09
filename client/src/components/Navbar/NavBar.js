@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { AppBar, Avatar, Typography, Toolbar, Button } from '@material-ui/core';
-import useStyles from './styles'
 import { useDispatch } from 'react-redux';
 import { memories } from '../../images'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LOGOUT } from '../../constants/actionTypes';
+import useStyles from './styles'
+import decode from 'jwt-decode'
 
 
 
@@ -16,13 +17,30 @@ const Navbar = () => {
     const location = useLocation();
 
     const logout = () => {
-        dispatch({ type: LOGOUT })
-        navigate('/')
-        setUser(null)
+        dispatch({ type: LOGOUT });
+        setUser(null);
+        localStorage.removeItem('profile');
+        setTimeout(() => {
+            console.log(localStorage.getItem('profile')); // Check if the item is removed
+        }, 100);
+        setTimeout(() => {
+            navigate('/auth');
+        }, 100);
     };
 
     useEffect(() => {
+        setUser(JSON.parse(localStorage.getItem('profile')));
+
         const token = user?.token;
+
+        if (token) {
+            const decodedToken = decode(token);
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+                logout()
+                setUser(null);
+            }
+
+        }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location]);
