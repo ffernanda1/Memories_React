@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { deletePost, likePost } from '../../../actions/posts.js';
 
 const Post = ({ post, setCurrentId }) => {
+    console.log(post)
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'))
